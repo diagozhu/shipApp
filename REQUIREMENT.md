@@ -44,5 +44,5 @@ x Code Quality
 
 #Also see
 REQUIREMENT.md
-DESIGN.md
+README.md
 HELP.md
