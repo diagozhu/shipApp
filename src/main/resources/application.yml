@@ -7,11 +7,11 @@ spring:
     username: sa
     password: 123456
   #    schema: classpath:db/schema.sql
-  #    data: classpath:db/data.sql
+    data: classpath:db/data.sql
   jpa:
     database: h2
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       format_sql: true
     show-sql: true
   h2:
