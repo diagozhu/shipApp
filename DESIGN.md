@@ -148,16 +148,25 @@ http://localhost:8008/api/v1/rootShipment/split/{rootShipId}/{newWeight}
 return 0 - OK!
 
 ## Test Design
-com.diago.ship.TU_ShipmentCrud
- - Test Cases:
-   - Test CURD of ROOT Shipment.
-   - Test CURD of STANDARD Shipment.
-   - Test CURD of MERGED Shipment.
-   - Test rootShipment.split 
-   - rootShipment.changeWeight 
-   - mergeShipment.merge .
-com.diago.ship.TU_RootShipment
-   - 6 test cases for rootShipment.split()
+#### com.diago.ship.TU_ShipmentCrud
+ - testMergedShipmentCrud
+ - testRootShipmentCrud
+ - testStandardShipmentCrud
+ - testSplitAndChangeAndMerge
+
+#### com.diago.ship.TU_ShipmentRest
+- testGreetApi
+- testShipmentSplitMergeChangeWeight
+
+#### com.diago.ship.TU_ShipmentService
+- testSplitRootShipment1
+- testSplitRootShipment2
+- testSplitRootShipment3
+- testSplitRootShipment4
+- testSplitRootShipment5
+- testSplitRootShipment6
+- testMergeShipment
+- testChangeWeightForRoot
 
 ##Risk (TODO)
 1) After root shipment splitting, its sub standard shipments may have weight 
@@ -171,3 +180,4 @@ weight of standard shipments is 333kg, total is 999kg .round total need.
 REQUIREMENT.md
 DESIGN.md
 HELP.md
+README.md
