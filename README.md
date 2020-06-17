@@ -12,29 +12,29 @@
 ####Split
  Split operation on a shipment, would create more than one shipments with specified quantities. 
  Sum of all child shipment quantities should be equal to parent shipment quantity.
-   - If weight of root shipment is 1000kg.We plan to split 3 shares. The solution is:
-     1) rootShipment.split("1000")         // Right!
-     2) rootShipment.split("501,499")      // Right!
-     3) rootShipment.split("500,299,251")  // Right!
-     4) rootShipment.split("333,333,333"); // SplitException! Total:999kg which should be 1000kg
-     5) rootShipment.split("1001");        // SplitException! Total:1001kg which should be 1000kg
-     6) Was split before                   // SplitException!
+   - If weight of root shipment 10 is 1000kg.We plan to split 3 shares. The solution is:
+     1) shipmentService.split(10, "1000")         // Right!
+     2) shipmentService.split(10, "501,499")      // Right!
+     3) shipmentService.split(10, "500,299,251")  // Right!
+     4) shipmentService.split(10, "333,333,333"); // SplitException! Total:999kg which should be 1000kg
+     5) shipmentService.split(10, "1001");        // SplitException! Total:1001kg which should be 1000kg
+     6) Was split before                          // SplitException!
     
 ####Merge
 Merge operation on more than one shipment, would create one child shipment with summed 
 up quantity. Sum of all parent shipment quantities should be equal to child shipment quantity.
   - If 1 root shipment split to 3 child standard shipment which id:1/2/3. Weight:111/222/333kg
-    1) rootShipment.merge("1");     //MergeException! Merge only 1 standard shipment, at least 2.
-    2) rootShipment.merge("1,2");   //Right! Total merge weight: 333kg
-    3) rootShipment.merge("1,2,3"); //MergeException! id:1,2 was merged before.
+    1) shipmentService.merge("1");     //MergeException! Merge only 1 standard shipment, at least 2.
+    2) shipmentService.merge("1,2");   //Right! Total merge weight: 333kg
+    3) shipmentService.merge("1,2,3"); //MergeException! id:1,2 was merged before.
   
 ####Change root quantity
 This operation applies to trade. When trade quantity is changed, all shipment quantities should 
 be updated proportionally
-  - There is 1 root shipment 6000kg with 3 child standard shipments id:1/2/3 weight:1000/2000/3000kg
+  - There is a root shipment No.10 6000kg with 3 child standard shipments id:1/2/3 weight:1000/2000/3000kg
   - If there are some merged shipments on the root shipment. Find and re-accumulate them. 
-    - rootShipment.changeWeight("12000") //Right! new weight:2000/4000/6000kg, mergeShipment(2&3):10000kg
-    - rootShipment.changeWeight("2000")  //Right! new weight:333/666/1001kg (The biggest part will plus
+    - shipmentService.changeWeight(10, 12000) //Right! new weight:2000/4000/6000kg, mergeShipment(2&3):10000kg
+    - shipmentService.changeWeight(10, 2000)  //Right! new weight:333/666/1001kg (The biggest part will plus
        remainder, if they are same, max id will plus remainder.)
     - At the end, if there is any merged shipment, trigger auto merge("2,3"):1667kg
 

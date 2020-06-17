@@ -152,9 +152,8 @@ class TU_ShipmentCrud {
 
         //sprit to 4 standard shipments
         RootShipment rootShip2 = rootShipRepo.findById(lastInsertId).get();
-        int rows = rootShip2.splitNShares(rootShipRepo, stdShipRepo, 4);
+        int rows = shipmentService.split(lastInsertId, "20000,20000,20000,20000");
         Assertions.assertThat(rows).isEqualTo(4);
-
 
         // Check 4 split shipment was split from root shipment.
         RootShipment rootShip3 = rootShipRepo.findById(lastInsertId).get();

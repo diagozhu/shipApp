@@ -42,33 +42,6 @@ public class RootShipmentController {
     }
 
     /**
-     * split root shipment to standard shipments, the weight will be split by per.
-     *
-     * @param rootShipId root shipment id to be split.
-     * @param share      number to split.
-     * @return ResultBox with error code and message.
-     */
-    @GetMapping("split/{rootShipId}/{share}")
-    @Transactional
-    public ResultBox split(@PathVariable Integer rootShipId, @PathVariable Integer share) {
-        log.info("Enter RootShipment split()...");
-        RootShipment rootShip = rootShipRepo.findById(rootShipId).get();
-        if (rootShip == null) {
-            return ResultBox.buildBy(-1403); // return Not Found.
-        }
-        Integer numSplitShip;
-        try {
-            numSplitShip = rootShip.splitNShares(rootShipRepo, stdShipRepo, share);
-        } catch (SplitException e) {
-            e.printStackTrace();
-            return ResultBox.buildBy(-1); //return General error.
-        }
-        ResultBox ret = ResultBox.newOneByCode(0);
-        ret.setTotal(numSplitShip);
-        return ret;
-    }
-
-    /**
      * change weight of root shipment,the split standard shipments of weight also should be change by per.
      *
      * @param rootShipId root shipment id to be split.
